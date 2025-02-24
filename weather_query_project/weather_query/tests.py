@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .models import Query
+from .forms import CityNameForm
 
 # Create your tests here.
 
@@ -13,3 +14,10 @@ class ModelTesting(TestCase):
         self.assertIsNotNone(self.q1.timestamp)
         self.assertEqual(self.q1.weather_details['weather'][0]['main'], 'Clear')
         self.assertEqual(self.q1.weather_details['weather'][0]['description'], 'clear sky')
+
+class FormTesting(TestCase):
+    def test_validation(self):
+        f1 = CityNameForm(data={"city_name": "Minsk"})
+        self.assertTrue(f1.is_valid())
+        f2 = CityNameForm(data={"city_name": ""})
+        self.assertFalse(f2.is_valid())
