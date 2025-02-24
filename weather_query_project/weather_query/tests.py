@@ -1,10 +1,10 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import Query
 from .forms import CityNameForm
 
 # Create your tests here.
 
-class ModelTesting(TestCase):
+class ModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.q1 = Query.objects.create(city_name="Minsk",
@@ -15,9 +15,14 @@ class ModelTesting(TestCase):
         self.assertEqual(self.q1.weather_details['weather'][0]['main'], 'Clear')
         self.assertEqual(self.q1.weather_details['weather'][0]['description'], 'clear sky')
 
-class FormTesting(TestCase):
+class FormTest(TestCase):
     def test_validation(self):
         f1 = CityNameForm(data={"city_name": "Minsk"})
         self.assertTrue(f1.is_valid())
         f2 = CityNameForm(data={"city_name": ""})
         self.assertFalse(f2.is_valid())
+
+class WeatherSearchTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
