@@ -21,7 +21,8 @@ def search_weather(request):
                 weather_data = response.json()
                 Query.objects.create(city_name=city, weather_details=weather_data)
 
-    return render(request, "index.html", {"form":form, "city": city, "weather_details": weather_data})
+    print("Weather Data:", weather_data)
+    return render(request, "index.html", {"form":form, "city": city, "weather_data": weather_data})
 
 def get_query_history(request):
     history = Query.objects.all().order_by("-timestamp")

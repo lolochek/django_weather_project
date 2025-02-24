@@ -1,6 +1,36 @@
 {% extends "base.html" %}
+
 {% block page_content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="text-center text-success">Search History</h1>
 
+        {% if history %}
+            <table class="table table-striped mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>City</th>
+                        <th>Date & Time</th>
+                        <th>Weather</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for query in history %}
+                    <tr>
+                        <td>{{ query.city_name }}</td>
+                        <td>{{ query.timestamp }}</td>
+                        <td>{{ query.weather_details.weather.0.description|title }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center mt-3 text-muted">No search history available.</p>
+        {% endif %}
 
-
+        <div class="text-center mt-4">
+            <a href="{% url 'search_weather' %}" class="btn btn-outline-primary">Back to Search</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
