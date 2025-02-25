@@ -22,7 +22,7 @@ def search_weather(request):
                 weather_data = response.json()
                 Query.objects.create(city_name=city, weather_details=weather_data)
             if response.status_code == 404:
-                err = "City not found."
+                err = "City not found. Enter a valid name."
 
     return render(request, "index.html", {"form":form, "city": city, "weather_data": weather_data, "err": err})
 
