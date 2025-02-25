@@ -145,6 +145,8 @@ This will start the application.
 ## 3 Access the application
 
 The web application should now be running on http://localhost:8000/weather. You can open this URL in your web browser.
+
 The web application features a form for entering the name of a city. After clicking the "Search" button, the current weather information for the specified city is displayed. 
 Each search query is recorded in the database, allowing users to keep track of their searches. Users can view their search history by clicking the "View Search History" button.
 
+🌤️Enjoy exploring the weather information!🌤️
