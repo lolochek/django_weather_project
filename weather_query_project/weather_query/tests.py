@@ -1,4 +1,8 @@
+from unittest.mock import patch
+
 from django.test import TestCase, Client
+from django.urls import reverse
+
 from .models import Query
 from .forms import CityNameForm
 
@@ -26,3 +30,35 @@ class WeatherSearchTest(TestCase):
     def setUp(self):
         self.client = Client()
 
+    @patch("requests.get")
+    def test_search_weather_valid(self, mock_get):
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {'weather': [{'id': 800, 'main': 'Clear', 'description': 'clear sky'}]}
+
+        response = self.client.post(reverse('search_weather'), {'city_name': 'Moscow'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Clear")
+        self.assertContains(response, "Moscow")
+
+
+    @patch("requests.get")
+    def test_search_weather_invalid(self, mock_get):
+        mock_get.return_value.status_code = 404
+
+        response = self.client.post(reverse('search_weather'), {'city_name': 'aaaa'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'City not found')
+
+class QueryHistoryTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_get_query_history(self):
+        Query.objects.create(city_name="Minsk",
+                             weather_details={'weather': [{'id': 800, 'main': 'Clear', 'description': 'clear sky'}]})
+
+        response = self.client.get(reverse('get_query_history'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Clear")
+        self.assertContains(response, "Minsk")
+        self.assertEqual(len(response.context['history']), 1)

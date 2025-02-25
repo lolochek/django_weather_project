@@ -10,6 +10,7 @@ def search_weather(request):
     form = CityNameForm()
     weather_data = None
     city = None
+    err = None
 
     if request.method == 'POST':
         form = CityNameForm(request.POST)
@@ -20,9 +21,10 @@ def search_weather(request):
             if response.status_code == 200:
                 weather_data = response.json()
                 Query.objects.create(city_name=city, weather_details=weather_data)
+            if response.status_code == 404:
+                err = "City not found."
 
-    print("Weather Data:", weather_data)
-    return render(request, "index.html", {"form":form, "city": city, "weather_data": weather_data})
+    return render(request, "index.html", {"form":form, "city": city, "weather_data": weather_data, "err": err})
 
 def get_query_history(request):
     history = Query.objects.all().order_by("-timestamp")

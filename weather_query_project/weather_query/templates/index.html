@@ -3,15 +3,22 @@
 {% block page_content %}
 <div class="container mt-5">
     <div class="card shadow-lg p-4">
-        <h1 class="text-center text-primary">Weather Search</h1>
+        <h1 class="text-center text-success">Weather Search</h1>
         <form method="post" class="mt-3">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="city_name" class="form-label">Enter City Name:</label>
                 {{ form.city_name }}
             </div>
-            <button type="submit" class="btn btn-primary w-100">Search</button>
+            <button type="submit" class="btn btn-success w-100">Search</button>
         </form>
+
+
+        {% if err %}
+        <div class="alert alert-danger mt-3" role="alert">
+            {{ err }}
+        </div>
+        {% endif %}
 
         {% if weather_data %}
         <div class="mt-4 p-3 bg-white shadow-sm rounded">
