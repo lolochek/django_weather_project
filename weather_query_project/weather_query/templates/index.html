@@ -25,6 +25,7 @@
             <h2 class="text-center">{{ weather_data.name }}</h2>
             <p class="text-center fs-4">{{ weather_data.weather.0.description|title }}</p>
             <p class="text-center fs-5">Temperature: {{ weather_data.main.temp }}°C</p>
+            <img src="http://openweathermap.org/img/wn/{{ weather_data.weather.0.icon }}@2x.png" alt="{{ weather_data.weather.0.description|title }}" class="d-block mx-auto" />
         </div>
         {% endif %}
 

@@ -6,7 +6,8 @@
         <h1 class="text-center text-success">Search History</h1>
 
         {% if history %}
-            <table class="table table-striped mt-3">
+            <div style="max-height: 500px; overflow-y: auto;">
+                <table class="table table-striped mt-3">
                 <thead class="table-dark">
                     <tr>
                         <th>City</th>
@@ -24,6 +25,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            </div>
         {% else %}
             <p class="text-center mt-3 text-muted">No search history available.</p>
         {% endif %}
