@@ -17,7 +17,7 @@ Before running this project, ensure you have the following tools installed:
 Clone the project from GitHub to your local machine:
 
 ```bash
-git clone [https://github.com/yourusername/weather-query-project.git](https://github.com/lolochek/django_weather_project)
+git clone https://github.com/lolochek/django_weather_project
 ```
 
 And then move to the project directory:
