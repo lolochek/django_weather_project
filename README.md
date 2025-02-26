@@ -4,7 +4,7 @@ This project is a Django-based application that queries weather information. It 
 
 Before running this project, ensure you have the following tools installed:
 
-- **Python 3.8+**
+- **Python 3.11+**
 - **pgAdmin4** for PostgreSQL
 - **Docker** (for Docker installation)
 - **Docker Compose** (for Docker installation)
